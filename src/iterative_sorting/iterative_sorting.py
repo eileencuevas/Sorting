@@ -38,5 +38,27 @@ def bubble_sort(arr):
 
 # STRETCH: implement the Count Sort function below
 def count_sort(arr, maximum=-1):
+    if arr == []:  # base case
+        return []
+    elif min(arr) < 0:  # base case
+        return 'Error, negative numbers not allowed in Count Sort'
+    # find the max and min values in the list
+    # make a dictionary with all the values in range min to max as keys with value of 0
+    counts = {value: 0 for value in range(min(arr), max(arr) + 1)}
+    # make a new list of length of original list
+    sorted_list = [0 for value in arr]
 
-    return arr
+    for value in arr:  # go through list and increment corresponding dictionary key
+        counts[value] += 1
+
+    # go through dict and add the value of the key before it to the current key's value
+    for current_index in range(1, len(counts)):
+        counts[current_index] = counts[current_index] + \
+            counts[current_index - 1]
+
+    # go through original list and place value in new list based off of key-value in dict while reducing key's value
+    for value in arr:
+        sorted_list[counts[value] - 1] = value
+        counts[value] -= 1
+
+    return sorted_list
