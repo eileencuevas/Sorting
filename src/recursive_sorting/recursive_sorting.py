@@ -32,14 +32,28 @@ def merge_sort(arr):
 
 # STRETCH: implement an in-place merge sort algorithm
 def merge_in_place(arr, start, mid, end):
-    # TO-DO
+    # no extra variables?
+    if arr[mid] <= arr[mid + 1]:
+        return arr
 
+    while start <= mid and mid + 1 <= end:
+        if arr[start] <= arr[mid + 1]:
+            start += 1
+        else:
+            arr.insert(start, arr.pop(mid + 1))
+            start += 1
+            mid += 1
     return arr
 
 
 def merge_sort_in_place(arr, l, r):
     # TO-DO
+    if l < r:
+        # Improvement: move (l + r)//2 into its own variable named middle
+        merge_sort_in_place(arr, l, (l + r)//2)
+        merge_sort_in_place(arr, ((l + r)//2) + 1, r)
 
+        merge_in_place(arr, l, (l + r)//2, r)
     return arr
 
 
